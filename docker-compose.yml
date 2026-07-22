@@ -1,0 +1,24 @@
+services:
+  mock-api:
+    build: ./mock_api
+    ports:
+      - "5001:5001"
+    restart: unless-stopped
+
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-chave-para-producao}
+      DATABASE_URL: sqlite:////app/instance/agenda.db
+      API_BASE_URL: http://mock-api:5001
+      API_TIMEOUT: "5"
+    volumes:
+      - agenda-db:/app/instance
+    depends_on:
+      - mock-api
+    restart: unless-stopped
+
+volumes:
+  agenda-db:

@@ -1,0 +1,240 @@
+:root {
+  --teal-900: #0d3b36;
+  --teal-700: #146c60;
+  --teal-500: #1d9484;
+  --teal-100: #e3f3f0;
+  --ink: #1f2a2e;
+  --slate: #5d6b6f;
+  --line: #dfe6e5;
+  --paper: #fbfdfc;
+  --white: #ffffff;
+  --amber: #a6650a;
+  --amber-bg: #fdf2e0;
+  --red: #a3272c;
+  --red-bg: #fbe9e9;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(13, 59, 54, 0.06), 0 8px 24px rgba(13, 59, 54, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--teal-900);
+  letter-spacing: -0.01em;
+}
+
+.brand-mark {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, var(--teal-500), var(--teal-700));
+  display: inline-block;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.9rem;
+  color: var(--slate);
+}
+
+.topbar-user a {
+  color: var(--teal-700);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.topbar-user a:hover { text-decoration: underline; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.flash-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.flash, .alert {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 0.92rem;
+  border: 1px solid transparent;
+}
+
+.flash-error, .alert-error {
+  background: var(--red-bg);
+  color: var(--red);
+  border-color: rgba(163, 39, 44, 0.2);
+}
+
+.flash-warning, .alert-warning {
+  background: var(--amber-bg);
+  color: var(--amber);
+  border-color: rgba(166, 101, 10, 0.2);
+}
+
+.alert { margin-bottom: 16px; }
+
+/* Login */
+
+.login-shell {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-card h1 {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+  color: var(--teal-900);
+}
+
+.login-subtitle {
+  margin: 0 0 22px;
+  color: var(--slate);
+  font-size: 0.9rem;
+}
+
+.login-card label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--teal-900);
+  margin-bottom: 6px;
+}
+
+.login-card input {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: var(--teal-500);
+  box-shadow: 0 0 0 3px var(--teal-100);
+}
+
+.login-card button {
+  margin-top: 4px;
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  background: var(--teal-700);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.login-card button:hover { background: var(--teal-900); }
+
+/* Agenda */
+
+.panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.92rem;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--teal-500);
+  box-shadow: 0 0 0 3px var(--teal-100);
+}
+
+.search-bar button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: var(--teal-700);
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.search-bar button:hover { background: var(--teal-900); }
+
+.search-bar button.secondary {
+  background: var(--white);
+  color: var(--teal-700);
+  border: 1px solid var(--line);
+}
+
+.search-bar button.secondary:hover { background: var(--teal-100); }
+
+#agenda-table {
+  font-size: 0.88rem;
+}
+
+.tabulator {
+  border: 1px solid var(--line) !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabulator-header {
+  background: var(--teal-100) !important;
+  color: var(--teal-900) !important;
+}
+
+@media (max-width: 640px) {
+  .search-bar { flex-direction: column; }
+}

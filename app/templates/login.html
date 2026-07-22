@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Entrar · Agenda Médica{% endblock %}
+{% block content %}
+<div class="login-shell">
+  <form class="login-card" method="post" novalidate>
+    <h1>Entrar</h1>
+    <p class="login-subtitle">Acesse a agenda médica com suas credenciais.</p>
+
+    <label for="identifier">Usuário ou e-mail</label>
+    <input type="text" id="identifier" name="identifier" autocomplete="username" required autofocus>
+
+    <label for="password">Senha</label>
+    <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+    <button type="submit">Entrar</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Agenda · Agenda Médica{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Buscar por paciente, CPF ou médico...">
+    <button id="search-btn" type="button">Buscar</button>
+    <button id="clear-btn" type="button" class="secondary">Limpar</button>
+  </div>
+
+  <div id="alert-box" class="alert" hidden></div>
+
+  <div id="agenda-table"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const table = new Tabulator("#agenda-table", {
+    layout: "fitColumns",
+    placeholder: "Nenhum agendamento disponível.",
+    columns: [
+      { title: "Data", field: "data", width: 110 },
+      { title: "Horário", field: "horario", width: 90 },
+      { title: "Paciente", field: "paciente", minWidth: 160 },
+      { title: "CPF", field: "cpf", width: 140 },
+      { title: "Médico", field: "medico", minWidth: 150 },
+      { title: "Especialidade", field: "especialidade", minWidth: 150 },
+      { title: "Convênio", field: "convenio", width: 120 },
+      { title: "Status", field: "status", width: 130 },
+    ],
+  });
+
+  const alertBox = document.getElementById("alert-box");
+
+  function showAlert(message, type) {
+    alertBox.textContent = message;
+    alertBox.className = "alert alert-" + type;
+    alertBox.hidden = false;
+  }
+
+  function hideAlert() {
+    alertBox.hidden = true;
+  }
+
+  async function loadAgendamentos(url) {
+    hideAlert();
+    try {
+      const response = await fetch(url);
+      const body = await response.json();
+
+      if (!response.ok) {
+        table.setData([]);
+        showAlert(body.mensagem || "Não foi possível carregar os agendamentos.", "error");
+        return;
+      }
+
+      table.setData(body.dados || []);
+      if (body.aviso) {
+        showAlert(body.aviso, "warning");
+      }
+    } catch (err) {
+      table.setData([]);
+      showAlert("Falha inesperada ao carregar os agendamentos.", "error");
+    }
+  }
+
+  function buscar() {
+    const termo = document.getElementById("search-input").value.trim();
+    const url = "{{ url_for('agenda.api_agendamentos') }}" + (termo ? "?q=" + encodeURIComponent(termo) : "");
+    loadAgendamentos(url);
+  }
+
+  document.getElementById("search-btn").addEventListener("click", buscar);
+  document.getElementById("search-input").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") buscar();
+  });
+  document.getElementById("clear-btn").addEventListener("click", () => {
+    document.getElementById("search-input").value = "";
+    loadAgendamentos("{{ url_for('agenda.api_agendamentos') }}");
+  });
+
+  loadAgendamentos("{{ url_for('agenda.api_agendamentos') }}");
+</script>
+{% endblock %}
